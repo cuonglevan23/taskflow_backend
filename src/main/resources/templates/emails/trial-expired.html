@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trial đã hết hạn - Tiếp tục với Premium - TaskFlow</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fafafa;
+        }
+        .email-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            border-radius: 10px;
+            color: white;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .expired-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .content {
+            margin: 20px 0;
+        }
+        .greeting {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .expired-info {
+            background: linear-gradient(135deg, #fff1f1, #ffe8e8);
+            border: 2px solid #ff6b6b;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .status-box {
+            background: #f8f9fa;
+            border-left: 4px solid #6c757d;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .status-good {
+            border-left-color: #28a745;
+            background: #f8fff8;
+        }
+        .status-limited {
+            border-left-color: #ffc107;
+            background: #fffef8;
+        }
+        .status-blocked {
+            border-left-color: #dc3545;
+            background: #fff8f8;
+        }
+        .comeback-offer {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .discount-code {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .pricing-compare {
+            background: #ffffff;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .pricing-header {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        .pricing-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .pricing-row:last-child {
+            border-bottom: none;
+        }
+        .pricing-row:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .plan-info {
+            flex: 1;
+        }
+        .plan-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .plan-desc {
+            font-size: 12px;
+            color: #666;
+            margin-top: 2px;
+        }
+        .plan-price {
+            color: #28a745;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 14px;
+            margin-right: 8px;
+        }
+        .cta-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 10px;
+            transition: transform 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            color: white;
+            text-decoration: none;
+        }
+        .cta-button.secondary {
+            background: linear-gradient(135deg, #6c757d, #495057);
+        }
+        .testimonial {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-style: italic;
+            text-align: center;
+        }
+        .testimonial-author {
+            font-weight: bold;
+            margin-top: 10px;
+            font-style: normal;
+            color: #667eea;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid #e9ecef;
+            padding-top: 20px;
+        }
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .email-container {
+                padding: 20px;
+            }
+            .pricing-row {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            .discount-code {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <div class="logo">💔 TaskFlow</div>
+            <div class="expired-badge">TRIAL ĐÃ HẾT HẠN</div>
+        </div>
+
+        <div class="content">
+            <div class="greeting">
+                Xin chào <strong th:text="${userName}">User</strong>, 👋
+            </div>
+
+            <div class="expired-info">
+                <div style="font-size: 20px; margin-bottom: 15px;">⏰ Trial của bạn đã hết hạn</div>
+                <div style="font-size: 16px; color: #666;">
+                    Kết thúc: <span th:text="${expiredDateFormatted}">Friday, January 15, 2024</span>
+                </div>
+            </div>
+
+            <p style="text-align: center; font-size: 18px; color: #2c3e50; margin: 25px 0;">
+                🛡️ <strong>Đừng lo lắng!</strong> Tài khoản của bạn vẫn an toàn và dữ liệu được bảo toàn 100%.
+            </p>
+
+            <div style="display: grid; gap: 15px; margin: 25px 0;">
+                <div class="status-box status-good">
+                    <strong>✅ Những gì BẠN VẪN CÓ THỂ LÀM:</strong>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>Đăng nhập và truy cập tài khoản</li>
+                        <li>Xem tất cả tasks, projects, dashboard</li>
+                        <li>Browse toàn bộ dữ liệu cũ</li>
+                        <li>Export data nếu cần</li>
+                    </ul>
+                </div>
+
+                <div class="status-box status-blocked">
+                    <strong>❌ Những gì BỊ GIỚI HẠN:</strong>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>Tạo tasks, projects mới</li>
+                        <li>Chỉnh sửa/xóa tasks hiện tại</li>
+                        <li>Upload files và attachments</li>
+                        <li>Team collaboration features</li>
+                        <li>Google Calendar sync</li>
+                        <li>Advanced analytics</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="comeback-offer">
+                <h3 style="margin-top: 0;">🎁 Ưu đãi comeback đặc biệt!</h3>
+                <p>Vì bạn đã trải nghiệm TaskFlow, chúng tôi có món quà đặc biệt:</p>
+
+                <div class="discount-code">
+                    <div style="font-size: 16px; margin-bottom: 5px;">Mã giảm giá:</div>
+                    <div th:text="${discountCode}">COMEBACK1234</div>
+                </div>
+
+                <p style="margin: 15px 0 0 0;">
+                    <strong th:text="${discountPercent}">20</strong>% OFF cho tháng đầu tiên + Setup support miễn phí!
+                </p>
+            </div>
+
+            <div class="pricing-compare">
+                <div class="pricing-header">
+                    <h3 style="margin: 0;">💎 Chọn gói Premium với giá ưu đãi</h3>
+                </div>
+                <div class="pricing-row">
+                    <div class="plan-info">
+                        <div class="plan-name">📅 Monthly Plan</div>
+                        <div class="plan-desc">Perfect để test và làm quen</div>
+                    </div>
+                    <div>
+                        <span class="original-price">$9.99</span>
+                        <span class="plan-price">$7.99/tháng</span>
+                    </div>
+                </div>
+                <div class="pricing-row">
+                    <div class="plan-info">
+                        <div class="plan-name">📅 Quarterly Plan <span style="color: #28a745; font-size: 11px; font-weight: normal;">KHUYẾN NGHỊ</span></div>
+                        <div class="plan-desc">Tiết kiệm hơn + ổn định cho team</div>
+                    </div>
+                    <div>
+                        <span class="original-price">$24.99</span>
+                        <span class="plan-price">$19.99/3 tháng</span>
+                    </div>
+                </div>
+                <div class="pricing-row">
+                    <div class="plan-info">
+                        <div class="plan-name">📅 Yearly Plan <span style="color: #28a745; font-size: 11px; font-weight: normal;">TIẾT KIỆM NHẤT</span></div>
+                        <div class="plan-desc">Giá tốt nhất cho dài hạn</div>
+                    </div>
+                    <div>
+                        <span class="original-price">$99.99</span>
+                        <span class="plan-price">$79.99/năm</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <a href="#" th:href="${upgradeUrl}" class="cta-button">
+                    🚀 Nâng cấp Premium ngay
+                </a>
+                <br>
+                <a href="#" th:href="${loginUrl}" class="cta-button secondary">
+                    🔍 Đăng nhập để xem dữ liệu
+                </a>
+            </div>
+
+            <div class="testimonial">
+                "TaskFlow đã thay đổi cách team chúng tôi làm việc. Productivity tăng 40% sau 1 tháng sử dụng!"
+                <div class="testimonial-author">- Nguyễn Văn A, Project Manager tại TechCorp</div>
+            </div>
+
+            <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 15px; margin: 20px 0;">
+                <h4 style="margin-top: 0; color: #856404;">⏳ Ưu đãi có thời hạn!</h4>
+                <p style="margin-bottom: 0; color: #856404;">
+                    Mã giảm giá <strong th:text="${discountCode}">COMEBACK1234</strong> chỉ có hiệu lực trong <strong>7 ngày</strong> kể từ hôm nay.
+                    Sau đó bạn sẽ phải trả giá thường!
+                </p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>
+                Có câu hỏi? Chúng tôi sẵn sàng hỗ trợ tại
+                <a href="mailto:support@taskflow.com" th:href="'mailto:' + ${supportEmail}">[[${supportEmail}]]</a>
+            </p>
+            <p style="font-size: 12px; color: #999;">
+                © <span th:text="${currentYear}">2024</span> TaskFlow. Chúng tôi luôn ở đây khi bạn sẵn sàng trở lại!
+            </p>
+            <p style="font-size: 12px; color: #999;">
+                Không muốn nhận email này nữa? <a href="#" style="color: #999;">Unsubscribe</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

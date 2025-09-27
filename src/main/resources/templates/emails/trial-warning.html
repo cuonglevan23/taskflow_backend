@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trial của bạn sắp hết hạn - TaskFlow</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .email-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ff6b6b;
+            padding-bottom: 20px;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .warning-badge {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .content {
+            margin: 20px 0;
+        }
+        .greeting {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .warning-box {
+            background: linear-gradient(135deg, #fff5f5, #ffe8e8);
+            border-left: 4px solid #ff6b6b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .countdown {
+            text-align: center;
+            margin: 25px 0;
+        }
+        .countdown-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #ff6b6b;
+            display: block;
+        }
+        .countdown-text {
+            font-size: 16px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+        .features-list {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .features-list h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        .features-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .features-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+            position: relative;
+            padding-left: 25px;
+        }
+        .features-list li:before {
+            content: "✨";
+            position: absolute;
+            left: 0;
+            top: 8px;
+        }
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+        .cta-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 10px;
+            transition: transform 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            color: white;
+            text-decoration: none;
+        }
+        .cta-button.secondary {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            color: #333;
+        }
+        .pricing-table {
+            background: #ffffff;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .pricing-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        .pricing-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .pricing-row:last-child {
+            border-bottom: none;
+        }
+        .pricing-row:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .plan-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .plan-price {
+            color: #667eea;
+            font-weight: bold;
+        }
+        .urgency-indicator {
+            background: #ff6b6b;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .urgency-indicator.critical {
+            background: #dc3545;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid #e9ecef;
+            padding-top: 20px;
+        }
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .email-container {
+                padding: 20px;
+            }
+            .countdown-number {
+                font-size: 36px;
+            }
+            .cta-button {
+                display: block;
+                margin: 10px 0;
+            }
+            .pricing-row {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <div class="logo">🚀 TaskFlow</div>
+            <div class="warning-badge" th:class="${urgencyLevel == 'CRITICAL'} ? 'warning-badge critical' : 'warning-badge'">
+                <span th:if="${isLastDay}">⚡ CUỐI CÙNG!</span>
+                <span th:unless="${isLastDay}">⚠️ SẮP HẾT HẠN</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="greeting">
+                Xin chào <strong th:text="${userName}">User</strong>! 👋
+            </div>
+
+            <div class="countdown">
+                <span class="countdown-number" th:text="${daysRemaining}">3</span>
+                <div class="countdown-text">
+                    <span th:if="${daysRemaining == 1}">Ngày cuối cùng</span>
+                    <span th:unless="${daysRemaining == 1}">Ngày còn lại</span>
+                </div>
+            </div>
+
+            <div class="urgency-indicator" th:class="${urgencyLevel == 'CRITICAL'} ? 'urgency-indicator critical' : 'urgency-indicator'">
+                <div th:if="${isLastDay}">
+                    🚨 Trial của bạn sẽ hết hạn vào ngày mai (<span th:text="${trialEndDateFormatted}">date</span>)!
+                </div>
+                <div th:unless="${isLastDay}">
+                    ⏰ Trial của bạn sẽ hết hạn trong <span th:text="${daysRemaining}">3</span> ngày nữa (<span th:text="${trialEndDateFormatted}">date</span>)
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h3 style="margin-top: 0; color: #ff6b6b;">🎯 Điều gì sẽ xảy ra sau khi hết hạn?</h3>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li><strong>✅ Vẫn đăng nhập được</strong> - Tài khoản của bạn không bị khóa</li>
+                    <li><strong>👀 Vẫn xem được dữ liệu</strong> - Tasks, projects, dashboard</li>
+                    <li><strong>❌ Không thể tạo/chỉnh sửa</strong> - Tasks, comments, files</li>
+                    <li><strong>🚫 Mất quyền truy cập</strong> - Tính năng nâng cao và team collaboration</li>
+                </ul>
+                <p style="margin-bottom: 0;">
+                    <em>💡 Đừng lo lắng! Dữ liệu của bạn được bảo toàn 100%. Khi nâng cấp, bạn sẽ lại có full quyền truy cập.</em>
+                </p>
+            </div>
+
+            <div class="features-list">
+                <h3>🌟 Những tính năng bạn sẽ giữ được khi nâng cấp Premium:</h3>
+                <ul>
+                    <li>Tạo và quản lý tasks không giới hạn</li>
+                    <li>Team collaboration với real-time chat</li>
+                    <li>Google Calendar integration</li>
+                    <li>File upload và storage nâng cao</li>
+                    <li>Advanced analytics và reports</li>
+                    <li>Priority support 24/7</li>
+                    <li>Custom notifications và reminders</li>
+                    <li>Project templates và automation</li>
+                </ul>
+            </div>
+
+            <div class="pricing-table">
+                <div class="pricing-header">
+                    <h3 style="margin: 0;">💎 Chọn gói Premium phù hợp</h3>
+                </div>
+                <div class="pricing-row">
+                    <div class="plan-name">📅 Monthly Plan</div>
+                    <div class="plan-price">$9.99/tháng</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="plan-name">📅 Quarterly Plan <span style="color: #28a745; font-size: 12px;">TIẾT KIỆM 17%</span></div>
+                    <div class="plan-price">$24.99/3 tháng</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="plan-name">📅 Yearly Plan <span style="color: #28a745; font-size: 12px;">TIẾT KIỆM 58%</span></div>
+                    <div class="plan-price">$99.99/năm</div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <a href="#" th:href="${upgradeUrl}" class="cta-button">
+                    🚀 Nâng cấp Premium ngay
+                </a>
+                <br>
+                <a href="#" th:href="${pricingUrl}" class="cta-button secondary">
+                    💡 Xem chi tiết các gói
+                </a>
+            </div>
+
+            <div style="background: #e3f2fd; border-radius: 8px; padding: 20px; margin: 20px 0; text-align: center;">
+                <h4 style="margin-top: 0; color: #1976d2;">🎁 Ưu đãi đặc biệt cho bạn!</h4>
+                <p style="margin-bottom: 0;">
+                    Nâng cấp trong <strong th:text="${daysRemaining}">3</strong> ngày tới để được <strong>10% giảm giá</strong>
+                    cho tháng đầu tiên và <strong>priority onboarding support</strong>! 🎉
+                </p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>
+                Cần hỗ trợ? Liên hệ với chúng tôi tại
+                <a href="mailto:support@taskflow.com" th:href="'mailto:' + ${supportEmail}">[[${supportEmail}]]</a>
+            </p>
+            <p style="font-size: 12px; color: #999;">
+                © <span th:text="${currentYear}">2024</span> TaskFlow. Bản quyền thuộc về chúng tôi.
+            </p>
+            <p style="font-size: 12px; color: #999;">
+                Email này được gửi tự động. Vui lòng không reply trực tiếp.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

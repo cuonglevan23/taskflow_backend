@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Deadline Reminder - TaskFlow</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8fafc;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .warning-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .task-details {
+            background-color: #fff7ed;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .deadline-alert {
+            background-color: #fef2f2;
+            border: 2px solid #ef4444;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .days-left {
+            font-size: 24px;
+            font-weight: 700;
+            color: #dc2626;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+        .footer {
+            background-color: #f9fafb;
+            padding: 30px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="warning-icon">⏰</div>
+            <h1>Task Deadline Reminder</h1>
+            <p>Don't let deadlines slip by!</p>
+        </div>
+
+        <div class="content">
+            <p>Hi <strong th:text="${userName}">User</strong>,</p>
+
+            <p>This is a friendly reminder about an upcoming deadline for one of your tasks in TaskFlow.</p>
+
+            <div class="deadline-alert">
+                <div class="days-left" th:text="${daysLeft > 0 ? daysLeft + ' days left' : 'Due today!'}">2 days left</div>
+                <p style="margin: 10px 0 0 0; color: #374151;">Time to focus and get it done! 💪</p>
+            </div>
+
+            <div class="task-details">
+                <h3 style="color: #d97706; margin-top: 0;">📋 Task Details</h3>
+
+                <div style="margin-bottom: 15px;">
+                    <strong>Task:</strong><br>
+                    <span style="font-size: 18px; color: #1f2937;" th:text="${taskTitle}">Complete project documentation</span>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <strong>Project:</strong><br>
+                    <span style="color: #374151;" th:text="${projectName}">Website Redesign</span>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <strong>Deadline:</strong><br>
+                    <span style="color: #dc2626; font-weight: 600;" th:text="${deadline}">Dec 17, 2024 at 5:00 PM</span>
+                </div>
+
+                <div th:if="${taskDescription}">
+                    <strong>Description:</strong><br>
+                    <span style="color: #6b7280;" th:text="${taskDescription}">Task description</span>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <a th:href="${taskUrl}" class="cta-button">
+                    View Task Details →
+                </a>
+            </div>
+
+            <div style="background-color: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 6px; padding: 20px; margin: 25px 0;">
+                <h4 style="color: #0284c7; margin: 0 0 10px 0;">💡 Quick Tips:</h4>
+                <ul style="color: #0284c7; margin: 0; padding-left: 20px;">
+                    <li>Break down the task into smaller, manageable chunks</li>
+                    <li>Set aside dedicated time to focus on this task</li>
+                    <li>Update the task status as you make progress</li>
+                    <li>Ask for help if you're stuck or need clarification</li>
+                </ul>
+            </div>
+
+            <p style="color: #6b7280; font-size: 14px;">
+                Stay on top of your deadlines! You can manage your notification preferences in your
+                <a href="https://taskflow.com/settings" style="color: #667eea;">account settings</a>.
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>Keep up the great work! 🎯</p>
+
+            <p style="font-size: 12px; color: #9ca3af;">
+                © <span th:text="${currentYear}">2024</span> TaskFlow. All rights reserved.<br>
+                Questions? Contact us at <a th:href="'mailto:' + ${supportEmail}" th:text="${supportEmail}" style="color: #667eea;">support@taskflow.com</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

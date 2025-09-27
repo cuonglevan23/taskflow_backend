@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - TaskFlow</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8fafc;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .success-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .payment-details {
+            background-color: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 5px 0;
+        }
+        .detail-label {
+            color: #374151;
+            font-weight: 500;
+        }
+        .detail-value {
+            color: #1f2937;
+            font-weight: 600;
+        }
+        .amount {
+            font-size: 24px;
+            color: #10b981;
+            font-weight: 700;
+        }
+        .footer {
+            background-color: #f9fafb;
+            padding: 30px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="success-icon">✅</div>
+            <h1>Payment Successful!</h1>
+            <p>Thank you for your subscription to TaskFlow</p>
+        </div>
+
+        <div class="content">
+            <p>Hi <strong th:text="${userName}">User</strong>,</p>
+
+            <p>Great news! Your payment has been processed successfully. You now have access to all <strong th:text="${planName}">Premium</strong> features of TaskFlow.</p>
+
+            <div class="payment-details">
+                <h3 style="color: #0ea5e9; margin-top: 0;">💳 Payment Details</h3>
+
+                <div class="detail-row">
+                    <span class="detail-label">Plan:</span>
+                    <span class="detail-value" th:text="${planName}">Premium Monthly</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">Amount:</span>
+                    <span class="detail-value amount" th:text="'$' + ${amount} + ' ' + ${currency}">$29.99 USD</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">Transaction ID:</span>
+                    <span class="detail-value" th:text="${transactionId}">txn_1234567890</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">Payment Date:</span>
+                    <span class="detail-value" th:text="${paymentDate}">Dec 15, 2024</span>
+                </div>
+
+                <div class="detail-row" th:if="${nextBillingDate != 'N/A'}">
+                    <span class="detail-label">Next Billing:</span>
+                    <span class="detail-value" th:text="${nextBillingDate}">Jan 15, 2025</span>
+                </div>
+            </div>
+
+            <div style="background-color: #ecfdf5; border: 1px solid #10b981; border-radius: 6px; padding: 20px; margin: 25px 0;">
+                <h4 style="color: #047857; margin: 0 0 15px 0;">🚀 What's Next?</h4>
+                <ul style="color: #047857; margin: 0; padding-left: 20px;">
+                    <li>Access advanced project analytics and reporting</li>
+                    <li>Create unlimited projects and teams</li>
+                    <li>Use premium integrations and automation features</li>
+                    <li>Get priority customer support</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="https://taskflow.com/dashboard" class="cta-button">
+                    Access Your Dashboard →
+                </a>
+            </div>
+
+            <div style="background-color: #fef2f2; border: 1px solid #ef4444; border-radius: 6px; padding: 15px; margin: 25px 0;">
+                <p style="color: #dc2626; margin: 0; font-size: 14px;">
+                    <strong>📧 Keep this email</strong> as your receipt for tax and accounting purposes.
+                </p>
+            </div>
+
+            <p style="color: #6b7280; font-size: 14px;">
+                Need help with billing? Contact our billing team at
+                <a th:href="'mailto:' + ${billingEmail}" th:text="${billingEmail}" style="color: #667eea;">billing@taskflow.com</a>
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>Thank you for being a valued TaskFlow customer!</p>
+
+            <p style="font-size: 12px; color: #9ca3af;">
+                © <span th:text="${currentYear}">2024</span> TaskFlow. All rights reserved.<br>
+                Questions? Contact us at <a th:href="'mailto:' + ${supportEmail}" th:text="${supportEmail}" style="color: #667eea;">support@taskflow.com</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

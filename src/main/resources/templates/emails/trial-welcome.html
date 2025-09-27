@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chào mừng đến với TaskFlow Premium Trial! - TaskFlow</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f8ff;
+        }
+        .email-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            color: white;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .welcome-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .content {
+            margin: 20px 0;
+        }
+        .greeting {
+            font-size: 20px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .trial-info-box {
+            background: linear-gradient(135deg, #e8f5e8, #f0fff0);
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .trial-countdown {
+            font-size: 48px;
+            font-weight: bold;
+            color: #28a745;
+            display: block;
+            margin: 10px 0;
+        }
+        .trial-text {
+            font-size: 18px;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .feature-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        .feature-desc {
+            font-size: 14px;
+            color: #666;
+        }
+        .getting-started {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .getting-started h3 {
+            color: #f57c00;
+            margin-top: 0;
+        }
+        .step-list {
+            list-style: none;
+            padding: 0;
+            counter-reset: step-counter;
+        }
+        .step-list li {
+            counter-increment: step-counter;
+            margin: 15px 0;
+            padding-left: 40px;
+            position: relative;
+        }
+        .step-list li:before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #667eea;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .cta-section {
+            text-align: center;
+            margin: 30px 0;
+            padding: 25px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            border-radius: 15px;
+            color: white;
+        }
+        .cta-button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            background: white;
+            transform: translateY(-2px);
+            color: #333;
+            text-decoration: none;
+        }
+        .timeline {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .timeline h3 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 8px;
+            background: white;
+        }
+        .timeline-day {
+            background: #667eea;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .timeline-content {
+            flex: 1;
+        }
+        .timeline-title {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .timeline-desc {
+            font-size: 14px;
+            color: #666;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid #e9ecef;
+            padding-top: 20px;
+        }
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .email-container {
+                padding: 20px;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .trial-countdown {
+                font-size: 36px;
+            }
+            .timeline-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            .timeline-day {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <div class="logo">🎉 TaskFlow</div>
+            <div class="welcome-badge">PREMIUM TRIAL ACTIVATED</div>
+        </div>
+
+        <div class="content">
+            <div class="greeting">
+                Chào mừng <strong th:text="${userName}">User</strong> đến với TaskFlow Premium! 🚀
+            </div>
+
+            <div class="trial-info-box">
+                <div style="font-size: 24px; margin-bottom: 15px;">🎁 Trial Premium đã được kích hoạt!</div>
+                <div class="trial-countdown" th:text="${trialDays}">14</div>
+                <div class="trial-text">Ngày sử dụng miễn phí</div>
+                <div style="margin-top: 15px; font-size: 16px;">
+                    Hết hạn: <strong th:text="${trialEndDateFormatted}">Friday, January 15, 2024</strong>
+                </div>
+            </div>
+
+            <p style="text-align: center; font-size: 18px; color: #2c3e50;">
+                🌟 Bạn hiện có quyền truy cập <strong>TOÀN BỘ</strong> tính năng Premium trong <span th:text="${trialDays}">14</span> ngày!
+                Hãy khám phá và trải nghiệm sức mạnh của TaskFlow.
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <div class="feature-title">Unlimited Tasks</div>
+                    <div class="feature-desc">Tạo và quản lý tasks không giới hạn với advanced filters</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <div class="feature-title">Team Collaboration</div>
+                    <div class="feature-desc">Real-time chat, file sharing, và project management</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">Analytics Dashboard</div>
+                    <div class="feature-desc">Báo cáo chi tiết, progress tracking, và insights</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <div class="feature-title">Google Calendar Sync</div>
+                    <div class="feature-desc">Tự động đồng bộ tasks với Google Calendar</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📁</div>
+                    <div class="feature-title">File Management</div>
+                    <div class="feature-desc">Upload files, attach documents, cloud storage</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <div class="feature-title">Smart Notifications</div>
+                    <div class="feature-desc">Custom alerts, deadline reminders, email notifications</div>
+                </div>
+            </div>
+
+            <div class="getting-started">
+                <h3>🚀 Bắt đầu với TaskFlow Premium trong 5 phút:</h3>
+                <ol class="step-list">
+                    <li><strong>Khám phá Dashboard:</strong> Xem overview của projects và tasks</li>
+                    <li><strong>Tạo Project đầu tiên:</strong> Organize work theo teams hoặc mục tiêu</li>
+                    <li><strong>Thêm Tasks:</strong> Tạo tasks với deadlines, priority, và assignments</li>
+                    <li><strong>Kết nối Google Calendar:</strong> Sync tasks để không bỏ lỡ deadline</li>
+                    <li><strong>Invite team members:</strong> Collaborate với đồng nghiệp real-time</li>
+                </ol>
+            </div>
+
+            <div class="timeline">
+                <h3>📅 Lộ trình Trial của bạn</h3>
+                <div class="timeline-item">
+                    <div class="timeline-day">Day 1</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Setup & Onboarding</div>
+                        <div class="timeline-desc">Khám phá tính năng, tạo projects đầu tiên</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-day">Day 7</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Team Collaboration</div>
+                        <div class="timeline-desc">Mời team members, setup workflows</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-day">Day 12</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Reminder Email</div>
+                        <div class="timeline-desc">Nhận thông báo còn 3 ngày, xem upgrade options</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-day">Day 14</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Trial Expires</div>
+                        <div class="timeline-desc">Chọn gói Premium để tiếp tục sử dụng</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <h3 style="margin-top: 0;">💡 Sẵn sàng bắt đầu?</h3>
+                <p>Truy cập dashboard ngay để khám phá tất cả tính năng Premium!</p>
+                <a href="#" th:href="${dashboardUrl}" class="cta-button">
+                    🚀 Vào Dashboard
+                </a>
+                <a href="#" th:href="${featuresUrl}" class="cta-button">
+                    💎 Xem Premium Features
+                </a>
+            </div>
+
+            <div style="background: #e3f2fd; border-radius: 10px; padding: 20px; margin: 25px 0; text-align: center;">
+                <h4 style="margin-top: 0; color: #1976d2;">💬 Cần hỗ trợ?</h4>
+                <p>Chúng tôi ở đây để giúp bạn tận dụng tối đa TaskFlow!</p>
+                <p>📧 Email: <a href="mailto:support@taskflow.com" th:href="'mailto:' + ${supportEmail}">[[${supportEmail}]]</a></p>
+                <p>⚡ Response time: < 2 hours cho Premium Trial users</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>
+                🎯 <strong>Tip:</strong> Bookmark dashboard của bạn để truy cập nhanh:
+                <a href="#" th:href="${dashboardUrl}">[[${dashboardUrl}]]</a>
+            </p>
+            <p style="font-size: 12px; color: #999;">
+                © <span th:text="${currentYear}">2024</span> TaskFlow. Chúc bạn làm việc hiệu quả!
+            </p>
+        </div>
+    </div>
+</body>
+</html>

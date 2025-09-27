@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Deadline Reminder</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header.urgent {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+        }
+        .header.overdue {
+            background: linear-gradient(135deg, #dc3545 0%, #a71e2a 100%);
+        }
+        .header.moderate {
+            background: linear-gradient(135deg, #ffa726 0%, #ff7043 100%);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .header .icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .task-info {
+            background-color: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .task-info.urgent {
+            border-left-color: #ff6b6b;
+        }
+        .task-info.overdue {
+            border-left-color: #dc3545;
+        }
+        .task-info.moderate {
+            border-left-color: #ffa726;
+        }
+        .task-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .task-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .deadline-info {
+            background-color: #fff;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .deadline-info.urgent {
+            border-color: #ff6b6b;
+            background-color: #fff5f5;
+        }
+        .deadline-info.overdue {
+            border-color: #dc3545;
+            background-color: #f8d7da;
+        }
+        .deadline-info.moderate {
+            border-color: #ffa726;
+            background-color: #fff8e1;
+        }
+        .deadline-date {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .time-remaining {
+            font-size: 16px;
+            color: #666;
+        }
+        .time-remaining.urgent {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+        .time-remaining.overdue {
+            color: #dc3545;
+            font-weight: 700;
+        }
+        .role-info {
+            background-color: #e3f2fd;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-style: italic;
+            color: #1565c0;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-align: center;
+            margin: 20px 0;
+            transition: transform 0.2s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            border-top: 1px solid #e9ecef;
+        }
+        .tips {
+            background-color: #e8f5e8;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .tips h3 {
+            color: #28a745;
+            margin-top: 0;
+            font-size: 16px;
+        }
+        .tips ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .tips li {
+            margin-bottom: 5px;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header" th:classappend="${isOverdue} ? 'overdue' : (${isUrgent} ? 'urgent' : (${isModerate} ? 'moderate' : ''))">
+            <div class="icon" th:text="${isOverdue} ? '🚨' : (${isUrgent} ? '🔥' : (${isModerate} ? '⏰' : '📋'))">⏰</div>
+            <h1 th:text="${isOverdue} ? 'Task Overdue Alert!' : (${isUrgent} ? 'Urgent Task Reminder!' : (${isModerate} ? 'Task Deadline Reminder' : 'Task Reminder'))">Task Deadline Reminder</h1>
+            <p th:text="'Hello ' + ${userName} + '!'">Hello User!</p>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Role Information -->
+            <div class="role-info">
+                <span th:text="${roleMessage}">You are assigned to this task</span>
+            </div>
+
+            <!-- Task Information -->
+            <div class="task-info" th:classappend="${isOverdue} ? 'overdue' : (${isUrgent} ? 'urgent' : (${isModerate} ? 'moderate' : ''))">
+                <div class="task-title" th:text="${taskTitle}">Task Title</div>
+                <div class="task-description" th:text="${taskDescription}" th:if="${taskDescription != null and !taskDescription.isEmpty()}">Task description goes here...</div>
+            </div>
+
+            <!-- Deadline Information -->
+            <div class="deadline-info" th:classappend="${isOverdue} ? 'overdue' : (${isUrgent} ? 'urgent' : (${isModerate} ? 'moderate' : ''))">
+                <div class="deadline-date" th:text="'Due: ' + ${deadline}">Due: Dec 25, 2024 at 5:00 PM</div>
+
+                <!-- Time Remaining Logic -->
+                <div class="time-remaining" th:classappend="${isOverdue} ? 'overdue' : (${isUrgent} ? 'urgent' : '')">
+                    <span th:if="${isOverdue}">
+                        <strong>⚠️ THIS TASK IS OVERDUE!</strong><br/>
+                        <span th:text="'Overdue by ' + ${daysLeft * -1} + ' day(s)'">Overdue by X days</span>
+                    </span>
+                    <span th:if="${!isOverdue and hoursLeft > 24}">
+                        <span th:text="'⏰ ' + ${daysLeft} + ' day(s) remaining'">X days remaining</span>
+                    </span>
+                    <span th:if="${!isOverdue and hoursLeft <= 24 and hoursLeft > 0}">
+                        <span th:text="'🔥 ' + ${hoursLeft} + ' hour(s) remaining'">X hours remaining</span>
+                    </span>
+                    <span th:if="${!isOverdue and hoursLeft <= 0}">
+                        <strong>⚠️ Due very soon!</strong>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div style="text-align: center;">
+                <a href="#" class="cta-button" th:text="${isOverdue} ? 'Complete Task Now!' : 'View Task Details'">View Task Details</a>
+            </div>
+
+            <!-- Tips Section (only for non-overdue tasks) -->
+            <div class="tips" th:if="${!isOverdue}">
+                <h3>💡 Quick Tips to Stay on Track:</h3>
+                <ul>
+                    <li>Break the task into smaller, manageable steps</li>
+                    <li>Set aside focused time blocks to work on this task</li>
+                    <li>Ask for help if you're stuck or need clarification</li>
+                    <li>Update the task status as you make progress</li>
+                </ul>
+            </div>
+
+            <!-- Overdue Action Items -->
+            <div class="tips" th:if="${isOverdue}" style="background-color: #f8d7da; border: 1px solid #f5c6cb;">
+                <h3 style="color: #721c24;">🚨 Immediate Actions Required:</h3>
+                <ul>
+                    <li style="color: #721c24;">Review and prioritize this overdue task</li>
+                    <li style="color: #721c24;">Communicate with your team about the delay</li>
+                    <li style="color: #721c24;">Update the task with current progress or status</li>
+                    <li style="color: #721c24;">Set a new realistic deadline if needed</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>This is an automated reminder from TaskFlow.</p>
+            <p>If you have questions, contact us at <a th:href="'mailto:' + ${supportEmail}" th:text="${supportEmail}">support@taskflow.com</a></p>
+            <p>&copy; <span th:text="${currentYear}">2024</span> TaskFlow. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

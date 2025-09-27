@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Expiring - TaskFlow</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8fafc;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .expiration-alert {
+            background-color: #fef2f2;
+            border: 2px solid #ef4444;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .days-left {
+            font-size: 24px;
+            font-weight: 700;
+            color: #dc2626;
+        }
+        .renew-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            text-decoration: none;
+            padding: 15px 40px;
+            border-radius: 6px;
+            font-weight: 600;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+        .footer {
+            background-color: #f9fafb;
+            padding: 30px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚠️ Subscription Expiring</h1>
+            <p>Don't lose access to your premium features</p>
+        </div>
+
+        <div class="content">
+            <p>Hi <strong th:text="${userName}">User</strong>,</p>
+
+            <p>This is a friendly reminder that your <strong th:text="${planName}">Premium</strong> subscription is expiring soon.</p>
+
+            <div class="expiration-alert">
+                <div class="days-left" th:text="${daysLeft > 0 ? daysLeft + ' days left' : 'Expires today!'}">3 days left</div>
+                <p style="margin: 10px 0 0 0; color: #374151;">
+                    <strong>Expiration Date:</strong> <span th:text="${expirationDate}">Dec 20, 2024</span>
+                </p>
+            </div>
+
+            <div style="background-color: #fef3cd; border: 1px solid #f59e0b; border-radius: 6px; padding: 20px; margin: 25px 0;">
+                <h4 style="color: #92400e; margin: 0 0 15px 0;">💎 What you'll lose without renewal:</h4>
+                <ul style="color: #92400e; margin: 0; padding-left: 20px;">
+                    <li>Unlimited projects and teams</li>
+                    <li>Advanced analytics and reporting</li>
+                    <li>Premium integrations</li>
+                    <li>Priority customer support</li>
+                    <li>Advanced automation features</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center;">
+                <a th:href="${renewUrl}" class="renew-button">
+                    Renew Subscription →
+                </a>
+            </div>
+
+            <div style="background-color: #ecfdf5; border: 1px solid #10b981; border-radius: 6px; padding: 20px; margin: 25px 0;">
+                <h4 style="color: #047857; margin: 0 0 10px 0;">✨ Why customers love TaskFlow Premium:</h4>
+                <ul style="color: #047857; margin: 0; padding-left: 20px;">
+                    <li>"Increased our team productivity by 40%" - Sarah M.</li>
+                    <li>"Best project management tool we've ever used" - Mike R.</li>
+                    <li>"The automation features save us hours every week" - Team Lead</li>
+                </ul>
+            </div>
+
+            <p style="color: #6b7280; font-size: 14px;">
+                Questions about your subscription? Contact our billing team at
+                <a th:href="'mailto:' + ${billingEmail}" th:text="${billingEmail}" style="color: #667eea;">billing@taskflow.com</a>
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>We'd love to keep you as a premium member! 💎</p>
+
+            <p style="font-size: 12px; color: #9ca3af;">
+                © <span th:text="${currentYear}">2024</span> TaskFlow. All rights reserved.<br>
+                Questions? Contact us at <a th:href="'mailto:' + ${supportEmail}" th:text="${supportEmail}" style="color: #667eea;">support@taskflow.com</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

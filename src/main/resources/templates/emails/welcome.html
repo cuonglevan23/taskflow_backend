@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chào mừng đến với TaskFlow!</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f8ff;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: 600;
+        }
+        .header .subtitle {
+            font-size: 16px;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .welcome-text {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        /* Google OAuth2 Important Notice */
+        .google-notice {
+            background: linear-gradient(135deg, #ea4335, #4285f4);
+            color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .google-notice h3 {
+            margin-top: 0;
+            font-size: 20px;
+        }
+        .google-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        /* Trial notification */
+        .trial-notification {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .trial-badge {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 8px 20px;
+            display: inline-block;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .features {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .features h3 {
+            color: #2c3e50;
+            margin-top: 0;
+            text-align: center;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .feature-item:last-child {
+            margin-bottom: 0;
+        }
+        .feature-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            width: 30px;
+            text-align: center;
+        }
+        .feature-text {
+            flex: 1;
+        }
+        .feature-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 3px;
+        }
+        .feature-desc {
+            font-size: 14px;
+            color: #666;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            margin: 10px;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            color: white;
+            text-decoration: none;
+        }
+        .cta-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .important-info {
+            background: #fff8e1;
+            border: 1px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .important-info h4 {
+            color: #856404;
+            margin-top: 0;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            border-top: 1px solid #e9ecef;
+        }
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .content {
+                padding: 30px 20px;
+            }
+            .header {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Chào mừng đến với TaskFlow!</h1>
+            <div class="subtitle">Hệ thống quản lý công việc thông minh</div>
+        </div>
+
+        <div class="content">
+            <div class="welcome-text">
+                Xin chào <strong th:text="${userName}">User</strong>! 👋<br>
+                Chúc mừng bạn đã tham gia cộng đồng TaskFlow! Chúng tôi rất vui mừng được đồng hành cùng bạn.
+            </div>
+
+            <!-- GOOGLE OAUTH2 IMPORTANT NOTICE -->
+            <div class="google-notice">
+                <div class="google-icon">🔐</div>
+                <h3>⚠️ THÔNG TIN QUAN TRỌNG VỀ ĐĂNG NHẬP</h3>
+                <p><strong>TaskFlow chỉ hỗ trợ duy nhất 1 phương thức đăng nhập:</strong></p>
+                <div style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 15px; margin: 15px 0;">
+                    <div style="font-size: 20px; margin-bottom: 10px;">🔑 <strong>Google Account</strong></div>
+                    <div>Sử dụng tài khoản Google để đăng nhập an toàn và tiện lợi</div>
+                </div>
+                <p style="font-size: 14px; margin-bottom: 0;">
+                    📧 Địa chỉ email này (<strong th:text="${userEmail}">user@example.com</strong>)
+                    đã được liên kết với tài khoản Google của bạn.
+                </p>
+            </div>
+
+            <!-- TRIAL NOTIFICATION -->
+            <div class="trial-notification">
+                <div class="trial-badge">🎁 PREMIUM TRIAL</div>
+                <h3>14 ngày dùng thử Premium miễn phí!</h3>
+                <p>Tài khoản của bạn đã được tự động kích hoạt <strong>14 ngày trial Premium</strong>
+                để trải nghiệm toàn bộ tính năng nâng cao!</p>
+                <div style="font-size: 18px; margin-top: 15px;">
+                    ⏰ <strong>Hết hạn:</strong> <span id="trial-end-date">Trong 14 ngày</span>
+                </div>
+            </div>
+
+            <div class="features">
+                <h3>🌟 Những gì bạn có thể làm ngay bây giờ:</h3>
+
+                <div class="feature-item">
+                    <div class="feature-icon">📋</div>
+                    <div class="feature-text">
+                        <div class="feature-title">Tạo Tasks & Projects Unlimited</div>
+                        <div class="feature-desc">Quản lý công việc không giới hạn với advanced filters</div>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">👥</div>
+                    <div class="feature-text">
+                        <div class="feature-title">Team Collaboration</div>
+                        <div class="feature-desc">Real-time chat, file sharing, assign tasks cho team</div>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">📅</div>
+                    <div class="feature-text">
+                        <div class="feature-title">Google Calendar Integration</div>
+                        <div class="feature-desc">Tự động sync tasks với Google Calendar của bạn</div>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-text">
+                        <div class="feature-title">Advanced Analytics</div>
+                        <div class="feature-desc">Dashboard insights, progress tracking, reports</div>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">📁</div>
+                    <div class="feature-text">
+                        <div class="feature-title">File Upload & Storage</div>
+                        <div class="feature-desc">Attach files, documents, images vào tasks</div>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🔔</div>
+                    <div class="feature-text">
+                        <div class="feature-title">Smart Notifications</div>
+                        <div class="feature-desc">Email alerts, deadline reminders, custom notifications</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <a href="http://localhost:3000/dashboard" class="cta-button">
+                    🎯 Bắt đầu sử dụng ngay
+                </a>
+            </div>
+
+            <div class="important-info">
+                <h4>📌 Lưu ý quan trọng:</h4>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li><strong>Chỉ đăng nhập bằng Google:</strong> TaskFlow không hỗ trợ đăng ký bằng email/password thông thường</li>
+                    <li><strong>Trial 14 ngày:</strong> Sau khi hết hạn, bạn vẫn truy cập được nhưng sẽ có một số giới hạn</li>
+                    <li><strong>Dữ liệu an toàn:</strong> Tất cả thông tin của bạn được bảo mật và backup tự động</li>
+                    <li><strong>Hỗ trợ 24/7:</strong> Team support sẵn sàng giúp đỡ bạn bất cứ lúc nào</li>
+                </ul>
+            </div>
+
+            <div style="background: #e3f2fd; border-radius: 10px; padding: 20px; margin: 25px 0; text-align: center;">
+                <h4 style="color: #1976d2; margin-top: 0;">💡 Mẹo sử dụng hiệu quả:</h4>
+                <p style="margin-bottom: 0;">
+                    1. Tạo project đầu tiên để organize tasks<br>
+                    2. Connect Google Calendar để không miss deadline<br>
+                    3. Invite team members để collaborate<br>
+                    4. Explore analytics để track progress
+                </p>
+            </div>
+
+            <div style="text-align: center; margin: 30px 0;">
+                <p style="font-size: 16px; color: #2c3e50;">
+                    Có câu hỏi? Chúng tôi luôn sẵn sàng hỗ trợ! 💬
+                </p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>
+                <strong>Cần hỗ trợ?</strong> Liên hệ với chúng tôi tại
+                <a href="mailto:support@taskflow.com" th:href="'mailto:' + ${supportEmail}">support@taskflow.com</a>
+            </p>
+            <p>
+                📱 <strong>Bookmark dashboard:</strong> <a href="http://localhost:3000/dashboard">localhost:3000/dashboard</a>
+            </p>
+            <p style="font-size: 12px; color: #999; margin-top: 20px;">
+                © <span th:text="${currentYear}">2024</span> TaskFlow.
+                Email này được gửi tự động khi bạn tạo tài khoản mới.
+            </p>
+            <p style="font-size: 12px; color: #999;">
+                🔐 <strong>Đăng nhập tiếp theo:</strong> Sử dụng nút "Sign in with Google" trên trang chủ
+            </p>
+        </div>
+    </div>
+</body>
+</html>
