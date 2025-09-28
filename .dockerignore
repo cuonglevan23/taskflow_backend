@@ -1,0 +1,52 @@
+# .dockerignore file to optimize Docker builds
+# Git
+.git
+.gitignore
+README.md
+
+# Build artifacts
+build/
+target/
+*.jar
+*.war
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+
+# Node modules (if any)
+node_modules/
+
+# Environment files
+.env.local
+.env.development
+.env.test
+
+# Documentation
+docs/
+*.md
+
+# Scripts that aren't needed in container
+scripts/
+
+# Docker files
+docker-compose*.yml
+Dockerfile*
+
+# Test files
+src/test/

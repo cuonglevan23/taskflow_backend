@@ -307,7 +307,7 @@ public class GoogleOAuth2Controller {
         accessTokenCookie.setHttpOnly(true);  // Prevent XSS
         accessTokenCookie.setSecure(false);   // Set to true in production with HTTPS
         accessTokenCookie.setPath("/");
-        accessTokenCookie.setDomain("localhost"); // Explicit domain for local development
+        accessTokenCookie.setDomain("main.d2az19adxqfdf3.amplifyapp.com"); // Production domain for Amplify
         accessTokenCookie.setMaxAge(accessTokenSeconds); // ✅ Use configured expiration (20 hours)
         response.addCookie(accessTokenCookie);
 

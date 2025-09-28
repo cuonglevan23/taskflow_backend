@@ -95,7 +95,7 @@ public class GmailOAuth2TokenService {
                 "&response_type=code" +
                 "&scope=" + scopes +
                 "&access_type=offline" +
-                "&redirect_uri=http://localhost:8080/api/auth/gmail/callback" +
+                "&redirect_uri=${GOOGLE_REDIRECT_URI:http://localhost:8080/api/auth/gmail/callback}" +
                 "&state=" + userEmail;
 
         log.info("🔗 Generated Gmail authorization URL for user: {}", userEmail);

@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/project-tasks")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = {"https://main.d2az19adxqfdf3.amplifyapp.com", "https://main.d4nz8d2yz1imm.amplifyapp.com", "http://localhost:3000", "http://localhost:5173"}, allowCredentials = "true")
 public class ProjectTaskController {
 
     private final ProjectTaskService projectTaskService;

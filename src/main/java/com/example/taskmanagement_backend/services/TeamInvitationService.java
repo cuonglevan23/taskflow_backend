@@ -47,7 +47,7 @@ public class TeamInvitationService {
                 .build();
             teamInvatationJpaRepository.save(invitation);
         //create Mail Link
-        String inviteLink = "http://localhost:8080/api/invitations/accept-team?token=" + invitation.getToken();
+        String inviteLink = "${BACKEND_URL:http://localhost:8080}/api/invitations/accept-team?token=" + invitation.getToken();
 
         //Gui mail dong bo
         concurrentTaskService.executeTask(() -> {

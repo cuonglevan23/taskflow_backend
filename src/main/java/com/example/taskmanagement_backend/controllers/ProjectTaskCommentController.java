@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/project-task-comments")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = {"https://main.d2az19adxqfdf3.amplifyapp.com", "http://localhost:3000", "http://localhost:5173"}, allowCredentials = "true")
 public class ProjectTaskCommentController {
 
     private final ProjectTaskCommentService projectTaskCommentService;

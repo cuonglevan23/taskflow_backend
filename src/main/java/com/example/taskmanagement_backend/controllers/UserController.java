@@ -19,7 +19,7 @@ package com.example.taskmanagement_backend.controllers;
     import org.springframework.web.bind.annotation.*;
 
     import java.util.List;
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173"}, allowCredentials = "true")
+@CrossOrigin(origins = {"https://main.d2az19adxqfdf3.amplifyapp.com", "https://main.d4nz8d2yz1imm.amplifyapp.com", "http://localhost:3000", "http://localhost:5173"}, allowCredentials = "true")
     @RestController
     @RequestMapping("/api/users")
     public class UserController {

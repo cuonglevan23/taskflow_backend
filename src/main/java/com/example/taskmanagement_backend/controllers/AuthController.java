@@ -27,6 +27,7 @@ import java.util.Map;
 @RequestMapping("/api/auth")
 @Slf4j
 @Tag(name = "Authentication", description = "Authentication endpoints")
+@CrossOrigin(origins = {"https://main.d2az19adxqfdf3.amplifyapp.com", "http://localhost:3000", "http://localhost:5173"}, allowCredentials = "true")
 public class AuthController {
 
     private final UserService userService;

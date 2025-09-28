@@ -15,9 +15,13 @@ public class CorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        // API endpoints CORS - Adding more origins to support different development setups
+        // API endpoints CORS - Adding production domain and dev origins
         registry.addMapping("/api/**")
                 .allowedOrigins(
+                    // Production domains
+                    "https://main.d2az19adxqfdf3.amplifyapp.com",
+                    "https://main.d4nz8d2yz1imm.amplifyapp.com",
+                    // Development origins
                     "http://localhost:3000",
                     "http://127.0.0.1:3000",
                     "http://localhost:8081",
@@ -35,6 +39,10 @@ public class CorsConfig implements WebMvcConfigurer {
         // WebSocket endpoints CORS - Matching the same origins
         registry.addMapping("/ws/**")
                 .allowedOrigins(
+                    // Production domains
+                    "https://main.d2az19adxqfdf3.amplifyapp.com",
+                    "https://main.d4nz8d2yz1imm.amplifyapp.com",
+                    // Development origins
                     "http://localhost:3000",
                     "http://127.0.0.1:3000",
                     "http://localhost:8081",
@@ -54,8 +62,12 @@ public class CorsConfig implements WebMvcConfigurer {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Adding more origins to support different development setups
+        // Adding production domain and development origins
         configuration.setAllowedOrigins(Arrays.asList(
+            // Production domain
+            "https://main.d2az19adxqfdf3.amplifyapp.com",
+            "https://main.d4nz8d2yz1imm.amplifyapp.com",
+            // Development origins
             "http://localhost:3000",
             "http://127.0.0.1:3000",
             "http://localhost:8081",

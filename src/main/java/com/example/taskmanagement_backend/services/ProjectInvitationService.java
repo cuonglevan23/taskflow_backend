@@ -57,7 +57,7 @@ public class ProjectInvitationService {
 
         invitationRepository.save(invitation);
         // Tạo link accept
-        String inviteLink = "localhost:8080/api/invitations/accept-project?token=" + invitation.getToken();
+        String inviteLink = "${BACKEND_URL:http://localhost:8080}/api/invitations/accept-project?token=" + invitation.getToken();
 
         // Gửi email chạy bất đồng bộ
         concurrentTaskService.executeTask(() -> {

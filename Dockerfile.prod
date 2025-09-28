@@ -1,0 +1,55 @@
+# Optimize Dockerfile for production - Fixed for ARM64 compatibility
+# ---- Build Stage ----
+FROM --platform=linux/amd64 gradle:8.7.0-jdk21-alpine AS build
+
+# Set working directory
+WORKDIR /app
+
+# Copy source files
+COPY . .
+
+# Set Gradle options for ARM64/Docker compatibility
+ENV GRADLE_OPTS="-Dorg.gradle.daemon=false -Dorg.gradle.parallel=false -Xmx2g"
+
+# Build the application with compatibility flags
+RUN gradle clean bootJar --no-daemon --no-parallel --stacktrace
+
+# ---- Runtime Stage ----
+FROM --platform=linux/amd64 amazoncorretto:21-alpine3.18
+
+# Install necessary packages and create non-root user
+RUN apk add --no-cache dumb-init curl && \
+    addgroup -g 1001 appgroup && \
+    adduser -D -u 1001 -G appgroup appuser
+
+# Set working directory
+WORKDIR /app
+
+# Copy the built JAR from build stage
+COPY --from=build /app/build/libs/*.jar app.jar
+
+# Change ownership to non-root user
+RUN chown -R appuser:appgroup /app
+
+# Switch to non-root user
+USER appuser
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=60s --retries=3 \
+  CMD curl -f http://localhost:8080/actuator/health || exit 1
+
+# Expose port
+EXPOSE 8080
+
+# Use dumb-init to handle signals properly
+ENTRYPOINT ["dumb-init", "--"]
+
+# JVM optimization flags for production
+CMD ["java", \
+     "-server", \
+     "-XX:+UseContainerSupport", \
+     "-XX:MaxRAMPercentage=75.0", \
+     "-XX:+UseG1GC", \
+     "-Xms512m", \
+     "-Xmx2g", \
+     "-jar", "app.jar"]
